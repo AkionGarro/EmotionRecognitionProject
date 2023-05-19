@@ -5,24 +5,22 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './zoom.component.html',
   styleUrls: ['./zoom.component.css'],
 })
-export class ZoomComponent implements OnInit {
-  constructor() {}
-  ngOnInit(): void {}
-
+export class ZoomComponent {
   async ngAfterContentInit(): Promise<any> {
     const { ZoomMtg } = await import('@zoomus/websdk');
     ZoomMtg.setZoomJSLib('https://source.zoom.us/lib', '/av');
+    ZoomMtg.preLoadWasm();
     ZoomMtg.prepareWebSDK();
 
     let payload = {
-      meetingNumber: '',
-      passWord: '',
-      sdkKey: '',
-      sdkSecret: '',
+      meetingNumber: '8089810074',
+      passWord: '12345678',
+      sdkKey: 'UH3fpvIWRjeCFqEonE7xAQ',
+      sdkSecret: 'b28jDoAI6BfR96tcGf7p1BWLYmbJFdG4',
       userName: 'Akion',
       userEmail: '',
-      role: '0',
       leaveUrl: 'http://localhost:4200',
+      role: '0',
     };
 
     ZoomMtg.generateSDKSignature({
@@ -37,26 +35,26 @@ export class ZoomComponent implements OnInit {
             ZoomMtg.join({
               meetingNumber: payload.meetingNumber,
               passWord: payload.passWord,
-              sdkKey: payload.sdkKey,
               userName: payload.userName,
               userEmail: payload.userEmail,
+              sdkKey: payload.sdkKey,
               signature: signature.result,
               tk: '',
-              success: function (data: any) {
-                console.log('join meeting success');
+              success: function (res: any) {
+                console.log(res);
               },
               error: function (error: any) {
-                console.log('Error Join', error);
+                console.log('Error Join --->', error);
               },
             });
           },
           error: function (error: any) {
-            console.log('Error INit', error);
+            console.log('Error init --->', error);
           },
         });
       },
       error: function (error: any) {
-        console.log(error);
+        console.log('Error --->', error);
       },
     });
   }
