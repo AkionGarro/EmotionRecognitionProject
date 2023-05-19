@@ -12,12 +12,9 @@ cnn.load_weights(pesos_modelo)
 def predict(file):
     x = load_img(file, target_size=(longitud, altura), color_mode="grayscale")  # Convertir a escala de grises
     x = img_to_array(x)
-    #guardar imagen
-    cv2.imwrite('C:\\Users\\bryam\\Downloads\\GUARDADO.jpg', x)
     x = np.expand_dims(x, axis=0)  # Agregar una dimensión adicional para el lote (batch)
     x = x / 255.0  # Normalizar los valores de píxeles entre 0 y 1
     arreglo = cnn.predict(x)  # [[1,0,0]]
-    print("Arreglo: ", arreglo)
     resultado = arreglo[0]  # [1,0,0]
     respuesta = np.argmax(resultado)  # 0
     emocion = None
@@ -43,7 +40,7 @@ def predict(file):
         print('Neutral')
         emocion = 'Neutral'
     #imprimir imagen con texto de la predicción
-    return respuesta
+    return emocion
 
 #predecir imagen
-prediccion = predict('C:\\Users\\bryam\\Downloads\\sorpresa.jpg')
+prediccion = predict('C:\\Users\\bryam\\Downloads\\rostro_recortado0.jpg')
