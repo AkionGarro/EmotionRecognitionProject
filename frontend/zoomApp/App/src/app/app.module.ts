@@ -7,6 +7,7 @@ import { ZoomComponent } from './zoom/zoom.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { HomeComponent } from './home/home.component';
 import { FormsModule } from '@angular/forms';
+import { AboutComponent } from './about/about.component';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { FormsModule } from '@angular/forms';
     ZoomComponent,
     NavigationComponent,
     HomeComponent,
+    AboutComponent,
   ],
   imports: [
     BrowserModule,

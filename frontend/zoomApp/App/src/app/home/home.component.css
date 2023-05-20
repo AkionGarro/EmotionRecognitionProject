@@ -1,0 +1,17 @@
+.topHome {
+  width: 100vw;
+  height: 45rem;
+  background-image: url("/assets/images/home.jpg");
+  background-image: url("https://images.pexels.com/photos/3769714/pexels-photo-3769714.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.title {
+  font-size: 5rem;
+  font-weight: bold;
+  color: rgb(255, 255, 255);
+  padding-top: 15rem;
+  padding-left: 50rem;
+  text-align: center;
+}
