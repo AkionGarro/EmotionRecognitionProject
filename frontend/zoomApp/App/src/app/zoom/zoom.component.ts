@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-zoom',
@@ -11,7 +12,16 @@ export class ZoomComponent implements OnInit {
   ngOnInit(): void {}
 
   async onJoinClick() {
-    this.joinMeeting(this.meetingId, this.password);
+    if (this.meetingId === '' || this.password === '') {
+      Swal.fire({
+        icon: 'error',
+        title: 'Ha ocurrido un error',
+        text: 'Complete los campos para continuar',
+      });
+      return;
+    } else {
+      this.joinMeeting(this.meetingId, this.password);
+    }
   }
 
   async joinMeeting(meeting: string, passWordI: string): Promise<any> {

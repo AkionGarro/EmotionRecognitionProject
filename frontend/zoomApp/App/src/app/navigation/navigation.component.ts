@@ -12,7 +12,7 @@ export class NavigationComponent implements OnInit {
   ngOnInit(): void {}
 
   goToAboutUs() {
-    this.router.navigate(['about-us']);
+    this.router.navigate(['about']);
   }
 
   goToMeeting() {
