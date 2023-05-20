@@ -1,1 +1,29 @@
-<p>zoom works!</p>
+<div class="zoomContainer">
+  <app-navigation></app-navigation>
+  <div class="containerMeetings">
+    <div class="card">
+      <h2>Unirse a la reunión</h2>
+      <form>
+        <label for="meeting-id">ID de la reunión:</label>
+        <input
+          type="text"
+          id="meeting-id"
+          name="meeting-id"
+          required
+          [(ngModel)]="meetingId"
+        />
+
+        <label for="password">Contraseña:</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          required
+          [(ngModel)]="password"
+        />
+
+        <button type="submit" (click)="onJoinClick()">Ingresar</button>
+      </form>
+    </div>
+  </div>
+</div>

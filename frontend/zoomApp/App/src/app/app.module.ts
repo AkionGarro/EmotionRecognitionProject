@@ -4,9 +4,17 @@ import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ZoomComponent } from './zoom/zoom.component';
+import { NavigationComponent } from './navigation/navigation.component';
+import { HomeComponent } from './home/home.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [AppComponent, ZoomComponent],
+  declarations: [
+    AppComponent,
+    ZoomComponent,
+    NavigationComponent,
+    HomeComponent,
+  ],
   imports: [
     BrowserModule,
     RouterModule.forRoot([
@@ -16,6 +24,7 @@ import { ZoomComponent } from './zoom/zoom.component';
       },
     ]),
     AppRoutingModule,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

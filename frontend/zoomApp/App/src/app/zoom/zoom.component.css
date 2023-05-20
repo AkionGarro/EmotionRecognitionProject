@@ -1,2 +1,67 @@
 @import "https://source.zoom.us/css/bootstrap.css";
 @import "https://source.zoom.us/css/react-select.css";
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.card {
+  width: 300px;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #d1d1d1dc;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+h2 {
+  text-align: center;
+}
+
+form {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  margin-bottom: 5px;
+}
+
+input {
+  padding: 8px;
+  background-color: #ffffff79;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+button {
+  padding: 10px;
+  background-color: #1588a5;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #136275;
+}
+
+.zoomContainer {
+  background-image: url("/assets/images/meeting.jpg");
+  height: 100vh;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.containerMeetings {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20rem 0;
+}

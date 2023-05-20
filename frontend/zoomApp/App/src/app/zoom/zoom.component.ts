@@ -5,16 +5,24 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './zoom.component.html',
   styleUrls: ['./zoom.component.css'],
 })
-export class ZoomComponent {
-  async ngAfterContentInit(): Promise<any> {
+export class ZoomComponent implements OnInit {
+  meetingId: string = '';
+  password: string = '';
+  ngOnInit(): void {}
+
+  async onJoinClick() {
+    this.joinMeeting(this.meetingId, this.password);
+  }
+
+  async joinMeeting(meeting: string, passWordI: string): Promise<any> {
     const { ZoomMtg } = await import('@zoomus/websdk');
     ZoomMtg.setZoomJSLib('https://source.zoom.us/lib', '/av');
     ZoomMtg.preLoadWasm();
     ZoomMtg.prepareWebSDK();
 
     let payload = {
-      meetingNumber: '8089810074',
-      passWord: '12345678',
+      meetingNumber: meeting,
+      passWord: passWordI,
       sdkKey: 'UH3fpvIWRjeCFqEonE7xAQ',
       sdkSecret: 'b28jDoAI6BfR96tcGf7p1BWLYmbJFdG4',
       userName: 'Akion',
