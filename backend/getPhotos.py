@@ -2,6 +2,8 @@ import cv2
 import pyautogui
 import numpy as np
 import mes
+
+
 def obtener_fotos():
     # Dimensiones de la pantalla
     screen_info = pyautogui.size()
@@ -22,7 +24,7 @@ def obtener_fotos():
         if duracion == 60:
             #cv2.imwrite('nueva_imagen'+str(i)+'.jpg', frame)
             #falta id_user
-            mes.predic_one(frame, None)
+            result = mes.predic_one(frame, None)
             i = i+1
             duracion = 0    
         duracion += 1
