@@ -3,10 +3,10 @@ import random
 import time
 import cv2
 import clasificador_haar
-import predecir_emocion
+import predecir_emocion_test
 import algoritmos
 
-face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_alt.xml')
+face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
 eyes_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_eye.xml')
 
 emotion = "Emotion"
@@ -25,14 +25,14 @@ def detectAndDisplay(frame):
         center_baj = (x + w//5, y+h+15)
         if engaged:
             #dibujar la palabra Engaged en la imagen en center_alt
-            frame = cv2.putText(frame, 'Engaged', center_alt, cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2, cv2.LINE_AA)
+            frame = cv2.putText(frame, 'Focused', center_alt, cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2, cv2.LINE_AA)
 
             #dibujar la emocion en la imagen en center_baj
             frame = cv2.putText(frame, emotion, center_baj, cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2, cv2.LINE_AA)
         
         else:
             #dibujar la palabra Engaged en la imagen en center_alt
-            frame = cv2.putText(frame, 'Not Engaged', center_alt, cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2, cv2.LINE_AA)
+            frame = cv2.putText(frame, 'Not Focused', center_alt, cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2, cv2.LINE_AA)
 
             #dibujar la emocion en la imagen en center_baj
             frame = cv2.putText(frame, emotion, center_baj, cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2, cv2.LINE_AA)
@@ -72,12 +72,13 @@ def start_stream():
             print('--(!) No captured frame -- Break!')
             break
         frame_for_emotion = algoritmos.calibrar_imagen(frame_for_emotion)
-        emotion = predecir_emocion.predict(frame_for_emotion)
+        emotion = predecir_emocion_test.predict(frame_for_emotion)
         detectAndDisplay(frame)
+        #esperar para no sobrecargar el procesador
+        time.sleep(0.2)
         if cv2.waitKey(10) == 27:
             break
 
 if __name__ == '__main__':
     print("Starting stream")
-    
     start_stream()

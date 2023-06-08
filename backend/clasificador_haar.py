@@ -4,27 +4,28 @@ import matplotlib.pyplot as plt
 class ClasificadorHaar:
     def __init__(self):
         # Cargar los clasificadores Haar para rostros y ojos
-        self.face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_alt.xml')
+        self.face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
         self.eye_cascade_glass = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_eye_tree_eyeglasses.xml')
         self.eye_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_eye.xml')
-    
+
     def detectar_atencion(self, imagen):
         # Convertir la imagen a escala de grises
         gray = cv2.cvtColor(imagen, cv2.COLOR_BGR2GRAY)
 
         # Detectar rostros en la imagen
         rostros = self.face_cascade.detectMultiScale(gray, 1.3, 5)
+        
+        total_rostros_posibles = len(rostros)
+        partes_detectadas = 0
 
-        if len(rostros) == 0:
-            return False
+        if total_rostros_posibles == 0:
+            print("Probabilidad de atención: 0%")
+            return 0.0
 
-        face_deted = False
-        eye_detected = False
-        detectado = False
-
-        # detectar si hay rostro
-        for (x, y, w, h) in rostros:
-            face_deted = True
+        # Detectar si hay rostro y ojos en el primer rostro detectado
+        if len(rostros) > 0:
+            partes_detectadas += 1
+            (x, y, w, h) = rostros[0]  # Tomar solo el primer rostro detectado
 
             # Recortar la región del rostro de la imagen original
             rostro_recortado = imagen[y:y+h, x:x+w]
@@ -32,22 +33,27 @@ class ClasificadorHaar:
             # Detectar ojos en la imagen recortada
             ojos = self.eye_cascade.detectMultiScale(rostro_recortado, 1.3, 5)
 
-            #si se detecta un ojo
+            # Si se detecta un ojo
             if len(ojos) > 0:
-                eye_detected = True
+                if len(ojos) == 1:
+                    partes_detectadas += 1
+                elif len(ojos) == 2:
+                    partes_detectadas += 2
             else:
                 ojos = self.eye_cascade_glass.detectMultiScale(rostro_recortado, 1.3, 5)
                 if len(ojos) > 0:
-                    eye_detected = True
-            break
-        
-        #si se detecta un rostro y un ojo
-        if face_deted and eye_detected:
-            detectado = True
-        else:
-            detectado = False
+                    if len(ojos) == 1:
+                        partes_detectadas += 1
+                    elif len(ojos) == 2:
+                        partes_detectadas += 2
+            
 
-        return detectado
+        # Calcular la probabilidad de atención
+        probabilidad_detectada = partes_detectadas / 3.0
+        print("Probabilidad de atención:", probabilidad_detectada)
+
+        return probabilidad_detectada
+
 
 
 # # Crear una instancia de la clase Deteccion

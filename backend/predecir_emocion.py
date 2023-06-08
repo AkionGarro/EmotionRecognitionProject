@@ -22,37 +22,23 @@ def predict(img):
         x = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     x = np.expand_dims(x, axis=0)  # Agregar una dimensión adicional para el lote (batch)
     x = x / 255.0  # Normalizar los valores de píxeles entre 0 y 1
-    arreglo = cnn.predict(x)  # [[1,0,0]]
+    arreglo = cnn.predict(x)  # [[1,0,0]]    
+    #covert array to diccionary
+    # emociones = {}
+    # emociones["Angry"] = "{:.9f}".format(arreglo[0][0])
+    # emociones["Disgust"] = "{:.9f}".format(arreglo[0][1])
+    # emociones["Fear"] = "{:.9f}".format(arreglo[0][2])
+    # emociones["Happy"] = "{:.9f}".format(arreglo[0][3])
+    # emociones["Sad"] = "{:.9f}".format(arreglo[0][4])
+    # emociones["Surprise"] = "{:.9f}".format(arreglo[0][5])
+    # emociones["Neutral"] = "{:.9f}".format(arreglo[0][6])
+    emociones = []
+    emociones.append(float("{:.5f}".format(arreglo[0][0])))
+    emociones.append(float("{:.5f}".format(arreglo[0][1])))
+    emociones.append(float("{:.5f}".format(arreglo[0][2])))
+    emociones.append(float("{:.5f}".format(arreglo[0][3])))
+    emociones.append(float("{:.5f}".format(arreglo[0][4])))
+    emociones.append(float("{:.5f}".format(arreglo[0][5])))
+    emociones.append(float("{:.5f}".format(arreglo[0][6])))
 
-    max = np.amax(arreglo)
-
-    resultado = arreglo[0]  # [1,0,0]
-    respuesta = np.argmax(resultado)  # 0
-    emocion = None
-    if respuesta == 0:
-        print('Enojado')
-        emocion = 'Enojado'
-    elif respuesta == 1:
-        print('Disgusto')
-        emocion = 'Disgusto'
-    elif respuesta == 2:
-        print('Miedo')
-        emocion = 'Miedo'
-    elif respuesta == 3:
-        print('Feliz')
-        emocion = 'Feliz'
-    elif respuesta == 4:
-        print('Triste')
-        emocion = 'Triste'
-    elif respuesta == 5:
-        print('Sorprendido')
-        emocion = 'Sorprendido'
-    elif respuesta == 6:
-        print('Neutral')
-        emocion = 'Neutral'
-    #imprimir imagen con texto de la predicción
-    return emocion + ' ' + str((max*100).round(2))+ '%'
-
-#predecir imagen
-prediccion = predict('C:\\Users\\bryam\\Downloads\\GUARDADO.jpg')
-print(prediccion)
+    return emociones
