@@ -4,6 +4,7 @@ import { interval } from 'rxjs';
 import { takeWhile } from 'rxjs/operators';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { ImageCapture } from 'image-capture';
+import { ApiService } from '../services/api.service';
 
 @Component({
   selector: 'app-zoom',
@@ -11,12 +12,11 @@ import { ImageCapture } from 'image-capture';
   styleUrls: ['./zoom.component.css'],
 })
 export class ZoomComponent implements OnInit {
-  
   meetingId: string = '';
   password: string = '';
 
   ngOnInit(): void {}
-  constructor(private sanitizer: DomSanitizer) {}
+  constructor(private sanitizer: DomSanitizer, private api: ApiService) {}
   async onJoinClick() {
     if (this.meetingId === '' || this.password === '') {
       Swal.fire({
@@ -147,9 +147,12 @@ export class ZoomComponent implements OnInit {
       });
   }
 
-
-
-    /*
+  sayHelloBackend() {
+    this.api.getHelloFromBackend().subscribe((res) => {
+      console.log(res);
+    });
+  }
+  /*
   capture() {
     this.captureService
       .getImage(this.screen.nativeElement, true)

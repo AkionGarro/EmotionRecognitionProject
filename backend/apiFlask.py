@@ -7,6 +7,13 @@ cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
 
 
+@app.route('/hello', methods=['POST', 'GET'])
+@cross_origin()
+def hello():
+
+    res = {'hello':'pai'}
+    return jsonify(res)
+
 @app.route('/login', methods=['POST', 'GET'])
 @cross_origin()
 def login():
@@ -16,7 +23,6 @@ def login():
     userLog = userLogin(name, password)
     res = fire.getUser(userLog)
     return jsonify(res)
-
 
 @app.route('/register', methods=['POST', 'GET'])
 @cross_origin()

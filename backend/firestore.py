@@ -202,11 +202,11 @@ class firestoreService():
 
 
 
-def main():
-    user = userRegister('Akion', 'carloscamp1008@gmail.com', 'Garrido', '1234', 
-                        'admin', 'san juan', '85045830', 'tourismSector')
-    fire = firestoreService()
-    res = fire.addUser(user)
-    print(res)
+#def main():
+#    user = userRegister('Akion', 'carloscamp1008@gmail.com', 'Garrido', '1234',
+#                        'admin', 'san juan', '85045830', 'tourismSector')
+#    fire = firestoreService()
+#    res = fire.addUser(user)
+#    print(res)
 
-main()    
+#main()
