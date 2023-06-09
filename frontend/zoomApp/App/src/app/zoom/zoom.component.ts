@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
+import { interval } from 'rxjs';
+import { takeWhile } from 'rxjs/operators';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { ImageCapture } from 'image-capture';
 
 @Component({
   selector: 'app-zoom',
@@ -7,10 +11,12 @@ import Swal from 'sweetalert2';
   styleUrls: ['./zoom.component.css'],
 })
 export class ZoomComponent implements OnInit {
+  
   meetingId: string = '';
   password: string = '';
-  ngOnInit(): void {}
 
+  ngOnInit(): void {}
+  constructor(private sanitizer: DomSanitizer) {}
   async onJoinClick() {
     if (this.meetingId === '' || this.password === '') {
       Swal.fire({
@@ -76,4 +82,103 @@ export class ZoomComponent implements OnInit {
       },
     });
   }
+
+  startCapture(): void {
+    interval(20000) // Ejecuta la función cada 30 segundos (30000 milisegundos)
+      .pipe(takeWhile(() => this.captureEnabled)) // Continúa ejecutando mientras captureEnabled sea verdadero
+      .subscribe(() => {
+        this.captureScreen();
+      });
+  }
+
+  captureEnabled = true; // Variable para habilitar o deshabilitar la captura
+
+  stopCapture(): void {
+    this.captureEnabled = false; // Detiene la captura estableciendo captureEnabled a falso
+  }
+
+  //Segunda funcion para capturar pantalla
+  captureScreen() {
+    const constraints = {
+      video: true,
+      preferCurrentTab: true,
+      audio: false,
+    };
+
+    navigator.mediaDevices
+      .getDisplayMedia(constraints)
+      .then((stream) => {
+        const videoTrack = stream.getVideoTracks()[0];
+        const imageCapture = new ImageCapture(videoTrack);
+
+        imageCapture
+          .grabFrame()
+          .then((imageBitmap: any) => {
+            const canvas = document.createElement('canvas');
+            canvas.width = imageBitmap.width;
+            canvas.height = imageBitmap.height;
+            const ctx = canvas.getContext('2d');
+            ctx?.drawImage(imageBitmap, 0, 0);
+
+            // Convertir el lienzo a formato PNG
+            canvas.toBlob((blob: any) => {
+              // Crear un enlace de descarga
+              const link = document.createElement('a');
+              link.href = URL.createObjectURL(blob);
+              console.log(link.href);
+              link.download = 'captura.png';
+
+              // Simular clic en el enlace para iniciar la descarga
+              link.click();
+
+              // Limpiar el objeto URL creado
+              URL.revokeObjectURL(link.href);
+            }, 'image/png');
+          })
+          .catch((error: any) => {
+            console.error('Error capturing screen:', error);
+          })
+          .finally(() => {
+            stream.getVideoTracks()[0].stop();
+          });
+      })
+      .catch((error) => {
+        console.error('Error accessing screen:', error);
+      });
+  }
+
+
+
+    /*
+  capture() {
+    this.captureService
+      .getImage(this.screen.nativeElement, true)
+      .subscribe((img) => {
+        console.log(img);
+        this.imgBase64 = img;
+        const blob = this.DataURIToBlob(this.imgBase64);
+        this.downloadBlobAsPNG(blob, 'image.png');
+      });
+  }
+
+  DataURIToBlob(dataURI: string) {
+    const splitDataURI = dataURI.split(',');
+    const byteString =
+      splitDataURI[0].indexOf('base64') >= 0
+        ? atob(splitDataURI[1])
+        : decodeURI(splitDataURI[1]);
+    const mimeString = splitDataURI[0].split(':')[1].split(';')[0];
+
+    const ia = new Uint8Array(byteString.length);
+    for (let i = 0; i < byteString.length; i++)
+      ia[i] = byteString.charCodeAt(i);
+
+    return new Blob([ia], { type: mimeString });
+  }
+
+  downloadBlobAsPNG(blob: Blob, filename: string) {
+    saveAs(blob, filename);
+  }
+
+*/
 }

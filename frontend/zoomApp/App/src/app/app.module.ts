@@ -9,7 +9,6 @@ import { HomeComponent } from './home/home.component';
 import { FormsModule } from '@angular/forms';
 import { AboutComponent } from './about/about.component';
 import { NgxCaptureModule } from 'ngx-capture';
-
 @NgModule({
   declarations: [
     AppComponent,

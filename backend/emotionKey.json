@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "emotionrecognition-5215e",
+  "private_key_id": "a0d39194334e6fee6e76416d38c6971b2b72fdbc",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC6JshzNpN3+2fQ\nENVcQshhNMYeCV7s31m8LJNhD+kw4KXpLhrYibMURCvVeEWkfKXp9yJ1nW1E8PFl\n4Fa7lyRh82S4MIUPwkPMTUhQzGtHXBju+tvTYtFdKcrZZhvkUFJykCNXeupY618l\ntRTGDczAtWZzvq4l14UTsUwVqdbQ5Yz45fJys5ZCEpjNOD3tpb5Ogj9CbTIlm7vI\nUL4UhU4ERoUR81EBqZ4z2ZySVUvxvSxeAg7w6cqj65OqamTzXX+NAR7yiMwSoinb\nURe+xVmwY0N0JpJhEXzTRX5178FobA5v3avHZDeHOAUZci8QboJAembXXDQyz6hv\nYwl1+sEFAgMBAAECggEARC5YVPq0YMnQaEECJNzBD/mIZw//mLrl3ypkgLSXMLPX\nkOS2KIGm+dFOTM3UlD6jdmJyWKnkj8/AWxQkMGlXhhjj1yLOWctJkdbsmcuFr4lo\nCIARbAdRr9HS3nWr2aAh0pxAlZYLp63uF52PkksTp7HJaLN6jZm2wFO8DmM6ryAD\n1wVlFnIQhqOd8dBoUFeKKcEXHdOhlyFHHRB9iYJKZnWw3qERYhN0HN1emVOKNqDf\nm3gqLacKOC9eJErFiZuhzMFZH1lkpZY1K3RBdximt966I/HpDGeErsww4CImuXXS\nCmOWklLKsXd8p7Fz7fWLOpDc4tDWyclY4PTn8VWzMQKBgQD1Or29eguyrdcrcUi/\nySADdz91MLrTyf4CUj40Uc2bnIzWnIwJKa5ROABbq6VbGK3B6usFAf1NgANdJYD6\nszZ3fn2io2uf2ZhtOWQ6l0AuRZrgQ51If3mHY5my7Zt/6uYZteV9eA8OqSVsHvHO\nzz8t6/yqGt8bbAceKh/uElWNXwKBgQDCU8sqTuE8ATnMxfZLqx1miCKoS1fZ6cUT\nRvsBRXiPzN7CgVPT53VIoQ2lKjy45ekVbOgjbKDlv/BWDFib5vtE4pVXBGPm/0oJ\nvkdVwoW/Wtr3MJQSJKX7bTAAINjwcPm9REwKElCge2ul6cGmLg7EexjabkZ5trMC\n4yBJheIoGwKBgDR0+0+DwurW2vc1BW3ZFRsIsC9eXCifxdEzTJEeio/l/g6OcDop\ni1teUl1Jq1aAQfMAUIPCuC+S2aVcN2npWhZXnYJj2MrZ3gxHQZRy9EyxoP6mGAgB\nFLsMaD1pLGFBmzUWvt+HBhmJvzKQsAMgPBCTsXmlw+H2ytL+CdSAYYKbAoGABAPL\nLMKYcK7tzMdCQWn1n4qsfKGh3QSxZ6aNxQb0aLQo3gfh/XzItYluSL1Ip+FIIYMw\ngJrb8CM5Ce4TXpU1F8U+pJ+YmMspcm4V9zWfocZ0w6qjRISxUTJ+TWJgWQdcgYaJ\ns6OROt+R58mekJpe/7wzVT/2AMm/hQ3AOwSjGYUCgYEAtyx06rSWImm6UIcTv8iY\nWE3qtV4q0zjh4B8AgcbS16RbeIBeH9Ua7T/mCm+zPyzfaNZgxGIo7p95iRctVZcT\nEkKXfsVqytXskORqiOqxOWuHIcN/BGW3vczTaECSg/Cu6TRDzL9HJbyCzLKPMBod\nViDRnZ7wPQxU+Ef8OH0ImrM=\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-7zawl@emotionrecognition-5215e.iam.gserviceaccount.com",
+  "client_id": "114980852216415752135",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-7zawl%40emotionrecognition-5215e.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
