@@ -15,14 +15,16 @@ def predic_one(img, id_user):
     
     engaged = algoritmos.engaged(detected_probability, emotion)
     data = {
+        "Id":id_user,
         "Focused": detected_probability,
         "Emotion": emotion,
-        "Engaged proba": engaged
+        "EngagedProba": engaged
     }
-    print("Focused: ", detected_probability)
-    print("Emotion: ", emotion)
-    print("Engaged proba: ", engaged)
-    return data
+    #print("Focused: ", detected_probability)
+    #print("Emotion: ", emotion)
+    #print("Engaged proba: ", engaged)
+    res = formatData(data)
+    return res
 
 
 
@@ -44,6 +46,31 @@ def base64_to_png(base64_string):
 
 
 
+def formatData(jsonData):
+
+    categories = ['angry', 'disgust', 'fear', 'happy', 'sad', 'surprise', 'neutral']
+    values = jsonData['Emotion']
+    engaged = jsonData["EngagedProba"]
+    focus = jsonData["Focused"]
+    id = jsonData["Id"]
+    emotionsInfo = {}
+    for category, value in zip(categories, values):
+        emotionsInfo[category] = value
+
+
+    engagedInfo ={
+        'result': engaged[0],
+        'probability': engaged[1]
+    }
+
+    Id:"12345678"
+    formatedJson = {
+        'Id': id,
+        'EmotionsInfo': emotionsInfo,
+        'EngagedInfo': engagedInfo,
+        'Focused': focus,
+    }
+    return formatedJson
 
 def predic_many(img, ids_user):
     pass

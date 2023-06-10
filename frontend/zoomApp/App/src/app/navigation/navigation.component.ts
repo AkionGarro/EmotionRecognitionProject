@@ -22,4 +22,8 @@ export class NavigationComponent implements OnInit {
   goToHome() {
     this.router.navigate(['home']);
   }
+
+  goToPrueba(){
+    this.router.navigate(['prueba']);
+  }
 }

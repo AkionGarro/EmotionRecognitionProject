@@ -65,6 +65,24 @@ class firestoreService():
         self.db = firestore.client()
 
     # Add document using know id, change document to document(user['name'])
+    def addMeeting(self, data):
+        checkMeeting = self.db.collection('Meetings').where("Id", "==", data.meetingId).get()
+        if checkMeeting == []:
+            doc_ref = self.db.collection(u'Meetings').document(data.meetingId)
+            doc_ref.set({
+                'Focused': data.detected_probability,
+                'Emotion': data.emotion,
+                'Engaged proba': data.engaged,
+            })
+            res = {'result': 'Sucess'}
+            return res
+        else:
+            res = {'result': 'Change Username'}
+            return res
+
+
+
+
     def addUser(self, user):
         checkUser = self.db.collection('users').where("username", "==", user.username).get()
         if checkUser == []:

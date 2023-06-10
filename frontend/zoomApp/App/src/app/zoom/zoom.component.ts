@@ -124,29 +124,16 @@ export class ZoomComponent implements OnInit {
 
           // Extract the Base64-encoded image data from the data URL
           const base64Image = dataUrl.split(',')[1];
-      
+
           console.log(base64Image);
           const formData = new FormData();
-          formData.append('imageBlob', base64Image);
+          formData.append('imageBase64', base64Image);
+          formData.append('meetingId', this.meetingId);
           console.log(formData);
           this.api.sortImageAttention(formData).subscribe((res) => {
             console.log(res);
           });
         })
-        .then((blob: any) => {
-          // Aquí puedes continuar con el código para enviar el blob a través de la API
-          // Crear un enlace de descarga
-          const link = document.createElement('a');
-          link.href = URL.createObjectURL(blob);
-          console.log(link.href);
-          link.download = 'captura.png';
-
-          // Simular clic en el enlace para iniciar la descarga
-          link.click();
-
-          // Limpiar el objeto URL creado
-          URL.revokeObjectURL(link.href);
-        }, 'image/png')
         .catch((error: any) => {
           console.error('Error capturing screen:', error);
         })
@@ -161,36 +148,4 @@ export class ZoomComponent implements OnInit {
       console.log(res);
     });
   }
-  /*
-  capture() {
-    this.captureService
-      .getImage(this.screen.nativeElement, true)
-      .subscribe((img) => {
-        console.log(img);
-        this.imgBase64 = img;
-        const blob = this.DataURIToBlob(this.imgBase64);
-        this.downloadBlobAsPNG(blob, 'image.png');
-      });
-  }
-
-  DataURIToBlob(dataURI: string) {
-    const splitDataURI = dataURI.split(',');
-    const byteString =
-      splitDataURI[0].indexOf('base64') >= 0
-        ? atob(splitDataURI[1])
-        : decodeURI(splitDataURI[1]);
-    const mimeString = splitDataURI[0].split(':')[1].split(';')[0];
-
-    const ia = new Uint8Array(byteString.length);
-    for (let i = 0; i < byteString.length; i++)
-      ia[i] = byteString.charCodeAt(i);
-
-    return new Blob([ia], { type: mimeString });
-  }
-
-  downloadBlobAsPNG(blob: Blob, filename: string) {
-    saveAs(blob, filename);
-  }
-
-*/
 }

@@ -20,17 +20,13 @@ def hello():
 @app.route('/sortImage', methods=['POST', 'GET'])
 @cross_origin()
 def sortImage():
-    imageBase64 = request.form.get('imageBlob')
+    meetingId = request.form.get('meetingId')
+    imageBase64 = request.form.get('imageBase64')
     imagePng = me.base64_to_png(imageBase64)
     img = cv2.imread(imagePng)
-    stats = me.predic_one(img,'a')
+    stats = me.predic_one(img,meetingId)
     print(stats)
     return jsonify(stats)
-
-
-
-
-
 
 
 

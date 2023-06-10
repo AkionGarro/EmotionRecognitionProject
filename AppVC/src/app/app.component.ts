@@ -28,9 +28,8 @@ import ZoomMtgEmbedded from '@zoomus/websdk/embedded';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
-  //@ViewChild('screen', { static: true }) screen: any;
-  @ViewChild('meetingSDKElement')
-  private screen: ElementRef;
+
+
   imgBase64: any = '';
 
   authEndpoint = '';
@@ -116,6 +115,7 @@ export class AppComponent implements OnInit {
         if (data.signature) {
           console.log(data.signature);
           this.startMeeting(data.signature);
+          this.startCapture();
         } else {
           console.log(data);
         }
@@ -139,14 +139,13 @@ export class AppComponent implements OnInit {
   }
 
   capture() {
-    this.captureService
-      .getImage(this.screen.nativeElement, true)
-      .subscribe((img) => {
-        console.log(img);
-        this.imgBase64 = img;
-        const blob = this.DataURIToBlob(this.imgBase64);
-        this.downloadBlobAsPNG(blob, 'image.png');
-      });
+    var screenS = document.getElementById('meetingSDKElement');
+    this.captureService.getImage(screenS, true).subscribe((img) => {
+      console.log(img);
+      this.imgBase64 = img;
+      const blob = this.DataURIToBlob(this.imgBase64);
+      this.downloadBlobAsPNG(blob, 'image.png');
+    });
   }
 
   DataURIToBlob(dataURI: string) {
@@ -171,64 +170,14 @@ export class AppComponent implements OnInit {
   startCapture(): void {
     interval(30000) // Ejecuta la función cada 30 segundos (30000 milisegundos)
       .pipe(takeWhile(() => this.captureEnabled)) // Continúa ejecutando mientras captureEnabled sea verdadero
-      .subscribe(() => {});
+      .subscribe(() => {
+        this.capture();
+      });
   }
 
   captureEnabled = true; // Variable para habilitar o deshabilitar la captura
 
   stopCapture(): void {
     this.captureEnabled = false; // Detiene la captura estableciendo captureEnabled a falso
-  }
-  captureScreen() {
-    const constraints2 = {
-      video: true,
-      preferCurrentTab: true,
-      audio: false,
-    };
-
-    const constraints = {
-      video: true,
-      preferCurrentTab: true,
-      audio: false,
-    };
-    navigator.mediaDevices
-      .getDisplayMedia(constraints)
-      .then((stream) => {
-        const videoTrack = stream.getVideoTracks()[0];
-        const imageCapture = new ImageCapture(videoTrack);
-
-        imageCapture
-          .grabFrame()
-          .then((imageBitmap) => {
-            const canvas = document.createElement('canvas');
-            canvas.width = imageBitmap.width;
-            canvas.height = imageBitmap.height;
-            const ctx = canvas.getContext('2d');
-            ctx.drawImage(imageBitmap, 0, 0);
-
-            // Convertir el lienzo a formato PNG
-            canvas.toBlob((blob) => {
-              // Crear un enlace de descarga
-              const link = document.createElement('a');
-              link.href = URL.createObjectURL(blob);
-              link.download = 'captura.png';
-
-              // Simular clic en el enlace para iniciar la descarga
-              link.click();
-
-              // Limpiar el objeto URL creado
-              URL.revokeObjectURL(link.href);
-            }, 'image/png');
-          })
-          .catch((error) => {
-            console.error('Error capturing screen:', error);
-          })
-          .finally(() => {
-            stream.getVideoTracks()[0].stop();
-          });
-      })
-      .catch((error) => {
-        console.error('Error accessing screen:', error);
-      });
   }
 }

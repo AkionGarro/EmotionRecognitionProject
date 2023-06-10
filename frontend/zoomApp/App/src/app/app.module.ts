@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { AboutComponent } from './about/about.component';
 import { NgxCaptureModule } from 'ngx-capture';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { PruebaComponent } from './prueba/prueba.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -17,6 +18,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
     NavigationComponent,
     HomeComponent,
     AboutComponent,
+    PruebaComponent,
   ],
   imports: [
     BrowserModule,
