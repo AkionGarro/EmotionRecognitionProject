@@ -9,7 +9,7 @@ face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_fronta
 import pandas as pd
 import numpy as np
 
-def calculate_emotions_factors(dataset_path = "'D:\\Memoria huawei pc\\MES_dataset.csv'"):
+def calculate_emotions_factors(dataset_path = "'data\\MES_dataset.csv'"):
     # Cargar el conjunto de datos desde el archivo CSV
     dataset = pd.read_csv(dataset_path, na_values='-')
 
@@ -29,7 +29,7 @@ def calculate_emotions_factors(dataset_path = "'D:\\Memoria huawei pc\\MES_datas
 
 def engaged(focused_value, emotions_weights):
     # Definir el peso de cada emoción (puedes ajustar estos valores según tus necesidades)
-    emotions_factors = calculate_emotions_factors('D:\\Memoria huawei pc\\MES_dataset.csv')
+    emotions_factors = calculate_emotions_factors('data\\MES_dataset.csv')
     print(emotions_factors)
 
     # Multiplicar cada peso de emoción por su respectivo valor en emotions_weights

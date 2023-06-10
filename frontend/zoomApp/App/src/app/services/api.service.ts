@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Firestore, collection, addDoc } from '@angular/fire/firestore';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
@@ -50,5 +50,9 @@ export class ApiService {
 
   getHelloFromBackend(): Observable<any> {
     return this.client.get(this.BASE_URL + 'hello');
+  }
+
+  sortImageAttention(image: any): Observable<any> {
+    return this.client.post(this.BASE_URL + 'sortImage', image);
   }
 }

@@ -2,12 +2,13 @@ import pandas as pd
 import numpy as np
 import cv2
 import os
+import tensorflow as tf
 from tensorflow.keras import backend as K
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras import optimizers
 from tensorflow.keras.layers import  Convolution2D, MaxPooling2D
 from tensorflow.keras import backend as K
-import tensorflow as tf
+
 from tensorflow.keras.utils import to_categorical
 
 K.clear_session()

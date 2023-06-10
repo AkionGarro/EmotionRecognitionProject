@@ -81,6 +81,7 @@ export class ZoomComponent implements OnInit {
         console.log('Error --->', error);
       },
     });
+    this.startCapture();
   }
 
   startCapture(): void {
@@ -98,53 +99,61 @@ export class ZoomComponent implements OnInit {
   }
 
   //Segunda funcion para capturar pantalla
-  captureScreen() {
+  async captureScreen() {
     const constraints = {
       video: true,
       preferCurrentTab: true,
       audio: false,
     };
 
-    navigator.mediaDevices
-      .getDisplayMedia(constraints)
-      .then((stream) => {
-        const videoTrack = stream.getVideoTracks()[0];
-        const imageCapture = new ImageCapture(videoTrack);
+    navigator.mediaDevices.getDisplayMedia(constraints).then((stream) => {
+      const videoTrack = stream.getVideoTracks()[0];
+      const imageCapture = new ImageCapture(videoTrack);
 
-        imageCapture
-          .grabFrame()
-          .then((imageBitmap: any) => {
-            const canvas = document.createElement('canvas');
-            canvas.width = imageBitmap.width;
-            canvas.height = imageBitmap.height;
-            const ctx = canvas.getContext('2d');
-            ctx?.drawImage(imageBitmap, 0, 0);
+      imageCapture
+        .grabFrame()
+        .then((imageBitmap: any) => {
+          const canvas = document.createElement('canvas');
+          canvas.width = imageBitmap.width;
+          canvas.height = imageBitmap.height;
+          const ctx = canvas.getContext('2d');
+          ctx?.drawImage(imageBitmap, 0, 0);
 
-            // Convertir el lienzo a formato PNG
-            canvas.toBlob((blob: any) => {
-              // Crear un enlace de descarga
-              const link = document.createElement('a');
-              link.href = URL.createObjectURL(blob);
-              console.log(link.href);
-              link.download = 'captura.png';
+          // Convert the canvas to a Base64-encoded string
+          const dataUrl = canvas.toDataURL();
 
-              // Simular clic en el enlace para iniciar la descarga
-              link.click();
-
-              // Limpiar el objeto URL creado
-              URL.revokeObjectURL(link.href);
-            }, 'image/png');
-          })
-          .catch((error: any) => {
-            console.error('Error capturing screen:', error);
-          })
-          .finally(() => {
-            stream.getVideoTracks()[0].stop();
+          // Extract the Base64-encoded image data from the data URL
+          const base64Image = dataUrl.split(',')[1];
+      
+          console.log(base64Image);
+          const formData = new FormData();
+          formData.append('imageBlob', base64Image);
+          console.log(formData);
+          this.api.sortImageAttention(formData).subscribe((res) => {
+            console.log(res);
           });
-      })
-      .catch((error) => {
-        console.error('Error accessing screen:', error);
-      });
+        })
+        .then((blob: any) => {
+          // Aquí puedes continuar con el código para enviar el blob a través de la API
+          // Crear un enlace de descarga
+          const link = document.createElement('a');
+          link.href = URL.createObjectURL(blob);
+          console.log(link.href);
+          link.download = 'captura.png';
+
+          // Simular clic en el enlace para iniciar la descarga
+          link.click();
+
+          // Limpiar el objeto URL creado
+          URL.revokeObjectURL(link.href);
+        }, 'image/png')
+        .catch((error: any) => {
+          console.error('Error capturing screen:', error);
+        })
+        .finally(() => {
+          stream.getVideoTracks()[0].stop();
+        });
+    });
   }
 
   sayHelloBackend() {

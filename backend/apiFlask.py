@@ -1,6 +1,8 @@
+import cv2
 from flask import Flask, redirect, url_for, request, jsonify
 from firestore import firestoreService, userLogin, userRegister, serviceAdd, adminRegister, phaseProcedure, procedure
 from flask_cors import CORS, cross_origin
+import mes as me
 
 app = Flask(__name__)
 cors = CORS(app)
@@ -14,6 +16,27 @@ def hello():
     res = {'hello':'pai'}
     return jsonify(res)
 
+
+@app.route('/sortImage', methods=['POST', 'GET'])
+@cross_origin()
+def sortImage():
+    imageBase64 = request.form.get('imageBlob')
+    imagePng = me.base64_to_png(imageBase64)
+    img = cv2.imread(imagePng)
+    stats = me.predic_one(img,'a')
+    print(stats)
+    return jsonify(stats)
+
+
+
+
+
+
+
+
+
+
+
 @app.route('/login', methods=['POST', 'GET'])
 @cross_origin()
 def login():
@@ -23,6 +46,9 @@ def login():
     userLog = userLogin(name, password)
     res = fire.getUser(userLog)
     return jsonify(res)
+
+
+
 
 @app.route('/register', methods=['POST', 'GET'])
 @cross_origin()

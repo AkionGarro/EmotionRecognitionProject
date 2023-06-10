@@ -61,5 +61,7 @@ def predict(img):
     return emocion + ' ' + str((max*100).round(2))+ '%'
 
 #predecir imagen
-prediccion = predict('C:\\Users\\bryam\\Downloads\\GUARDADO.jpg')
+
+#prediccion = predict('C:\\Users\\bryam\\Downloads\\GUARDADO.jpg')
+prediccion = predict('C:\\garroakion\\Downloads\\GUARDADO.jpg')
 print(prediccion)

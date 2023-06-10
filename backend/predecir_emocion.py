@@ -1,8 +1,8 @@
 import numpy as np
 import cv2
 from tensorflow.keras.preprocessing.image import load_img, img_to_array
-from tensorflow.keras.models import load_model
 
+from keras.models import load_model
 longitud, altura = 48, 48
 modelo = './data/modelo_emociones.h5'
 pesos_modelo = './data/pesos_emociones.h5'
