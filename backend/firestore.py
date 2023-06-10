@@ -66,13 +66,13 @@ class firestoreService():
 
     # Add document using know id, change document to document(user['name'])
     def addMeeting(self, data):
-        checkMeeting = self.db.collection('Meetings').where("Id", "==", data.meetingId).get()
+        checkMeeting = self.db.collection('Meetings').where("Id", "==", data["Id"]).get()
         if checkMeeting == []:
-            doc_ref = self.db.collection(u'Meetings').document(data.meetingId)
+            doc_ref = self.db.collection(u'Meetings').document(data["Id"])
             doc_ref.set({
-                'Focused': data.detected_probability,
-                'Emotion': data.emotion,
-                'Engaged proba': data.engaged,
+                'EmotionsInfo': data["EmotionsInfo"],
+                'EngagedInfo': data["EngagedInfo"],
+                'Focused': data["Focused"],
             })
             res = {'result': 'Sucess'}
             return res

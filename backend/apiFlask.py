@@ -20,11 +20,14 @@ def hello():
 @app.route('/sortImage', methods=['POST', 'GET'])
 @cross_origin()
 def sortImage():
-    meetingId = request.form.get('meetingId')
+    fire = firestoreService()
+
     imageBase64 = request.form.get('imageBase64')
+    meetingId = request.form.get('meetingId')
     imagePng = me.base64_to_png(imageBase64)
     img = cv2.imread(imagePng)
     stats = me.predic_one(img,meetingId)
+    fire.addMeeting(stats)
     print(stats)
     return jsonify(stats)
 
