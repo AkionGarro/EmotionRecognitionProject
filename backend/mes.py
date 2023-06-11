@@ -72,6 +72,7 @@ def promediar(json_list):
     num_items = len(json_list)
     total_probability = 0.0
     total_focused = 0.0
+    id = 0
     emotions_total = {'angry': 0.0, 'disgust': 0.0, 'fear': 0.0, 'happy': 0.0, 'sad': 0.0, 'surprise': 0.0, 'neutral': 0.0}
 
     for json_data in json_list:
@@ -82,13 +83,15 @@ def promediar(json_list):
         for key in emotions_total:
             emotions_total[key] += emotions[key]
 
+    id = json_list[0]['Id']
+
     average_probability = total_probability / num_items
     average_focused = total_focused / num_items
     average_emotions = {key: value / num_items for key, value in emotions_total.items()}
 
     result = 'Engaged' if average_probability >= 0.4 else 'Not Engaged'
     output_json = {
-        'Id': 1,
+        'Id': id,
         'EmotionsInfo': average_emotions,
         'EngagedInfo': {'result': result, 'probability': average_probability},
         'Focused': average_focused
@@ -104,7 +107,7 @@ def predic_many(img, ids_user):
         results.append(result)
     
     promedio = promediar(results)
-    #print("\n", promedio)
+    print("\n", promedio)
     return promedio
 
 # if __name__ == "__main__":
