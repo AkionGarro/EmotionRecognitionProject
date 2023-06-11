@@ -19,7 +19,6 @@ class ClasificadorHaar:
         partes_detectadas = 0
 
         if total_rostros_posibles == 0:
-            print("Probabilidad de atención: 0%")
             return 0.0
 
         # Detectar si hay rostro y ojos en el primer rostro detectado
@@ -50,8 +49,6 @@ class ClasificadorHaar:
 
         # Calcular la probabilidad de atención
         probabilidad_detectada = partes_detectadas / 3.0
-        print("Probabilidad de atención:", probabilidad_detectada)
-
         return probabilidad_detectada
 
 

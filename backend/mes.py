@@ -20,9 +20,9 @@ def predic_one(img, id_user):
         "Emotion": emotion,
         "EngagedProba": engaged
     }
-    #print("Focused: ", detected_probability)
-    #print("Emotion: ", emotion)
-    #print("Engaged proba: ", engaged)
+    print("Focused: ", detected_probability)
+    print("Emotion: ", emotion)
+    print("Engaged proba: ", engaged)
     res = formatData(data)
     return res
 
@@ -73,15 +73,25 @@ def formatData(jsonData):
     return formatedJson
 
 def predic_many(img, ids_user):
-    pass
+    imagenes = algoritmos.extraer_rostros(img)
+    results = []
+    for imagen in imagenes:
+        result = predic_one(imagen, ids_user)
+        results.append(result)
+    
+    #imprimir jsons de results
+    # cont = 1
+    # for result in results:
+    #     print("\n----------------------------", cont, "----------------------------------\n")
+    #     print(result)
+    #     cont += 1
+    return results
 
-"""
 if __name__ == "__main__":
 
-    ruta = 'D:\\TEC-GIT\\Git\\Operativos\\EmotionRecognition\\EmotionRecognitionProject\\backend\\images\imagen.png'
+    ruta = 'C:\\Users\\bryam\\Pictures\\Camera Roll\\pruebas\\g1.jpg'
     img = cv2.imread(ruta)
-    predic_one(img, 1)
+    predic_many(img, 1)
 
-"""
 
 
