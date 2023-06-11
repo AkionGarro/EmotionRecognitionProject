@@ -4,13 +4,17 @@ import matplotlib.pyplot as plt
 class ClasificadorHaar:
     def __init__(self):
         # Cargar los clasificadores Haar para rostros y ojos
-        self.face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
+        self.face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_alt.xml')
         self.eye_cascade_glass = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_eye_tree_eyeglasses.xml')
         self.eye_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_eye.xml')
 
     def detectar_atencion(self, imagen):
         # Convertir la imagen a escala de grises
-        gray = cv2.cvtColor(imagen, cv2.COLOR_BGR2GRAY)
+        try:
+            gray = cv2.cvtColor(imagen, cv2.COLOR_BGR2GRAY)
+        except:
+
+            gray = imagen
 
         # Detectar rostros en la imagen
         rostros = self.face_cascade.detectMultiScale(gray, 1.3, 5)
@@ -50,23 +54,3 @@ class ClasificadorHaar:
         # Calcular la probabilidad de atención
         probabilidad_detectada = partes_detectadas / 3.0
         return probabilidad_detectada
-
-
-
-# # Crear una instancia de la clase Deteccion
-# detector = ClasificadorHaar()
-
-# # # Cargar imagenes desde una carpeta a una lista
-# import os
-
-# categories = ['angry', 'disgust', 'fear', 'happy', 'sad', 'surprise', 'neutral']
-# images = []
-# labels = []
-
-
-
-# for filename in os.listdir("C:\\Users\\bryam\\Pictures\\Camera Roll\\pruebas"):
-#     image_path = os.path.join("C:\\Users\\bryam\\Pictures\\Camera Roll\\pruebas", filename)
-#     gray_image = cv2.imread(image_path)
-
-#     print("Engagement: ", detector.detectar_atencion(gray_image), "     File: ", filename)

@@ -1,6 +1,5 @@
 import algoritmos
 import clasificador_haar
-import predecir_emocion
 import cv2
 import io
 import base64
@@ -20,9 +19,6 @@ def predic_one(img, id_user):
         "Emotion": emotion,
         "EngagedProba": engaged
     }
-    print("Focused: ", detected_probability)
-    print("Emotion: ", emotion)
-    print("Engaged proba: ", engaged)
     res = formatData(data)
     return res
 
@@ -72,6 +68,34 @@ def formatData(jsonData):
     }
     return formatedJson
 
+def promediar(json_list):
+    num_items = len(json_list)
+    total_probability = 0.0
+    total_focused = 0.0
+    emotions_total = {'angry': 0.0, 'disgust': 0.0, 'fear': 0.0, 'happy': 0.0, 'sad': 0.0, 'surprise': 0.0, 'neutral': 0.0}
+
+    for json_data in json_list:
+        total_probability += json_data['EngagedInfo']['probability']
+        total_focused += json_data['Focused']
+        print(json_data['Focused'])
+        emotions = json_data['EmotionsInfo']
+        for key in emotions_total:
+            emotions_total[key] += emotions[key]
+
+    average_probability = total_probability / num_items
+    average_focused = total_focused / num_items
+    average_emotions = {key: value / num_items for key, value in emotions_total.items()}
+
+    result = 'Engaged' if average_probability >= 0.4 else 'Not Engaged'
+    output_json = {
+        'Id': 1,
+        'EmotionsInfo': average_emotions,
+        'EngagedInfo': {'result': result, 'probability': average_probability},
+        'Focused': average_focused
+    }
+
+    return output_json
+
 def predic_many(img, ids_user):
     imagenes = algoritmos.extraer_rostros(img)
     results = []
@@ -79,17 +103,13 @@ def predic_many(img, ids_user):
         result = predic_one(imagen, ids_user)
         results.append(result)
     
-    #imprimir jsons de results
-    cont = 1
-    for result in results:
-        print("\n----------------------------", cont, "----------------------------------\n")
-        print(result)
-        cont += 1
-    return results
+    promedio = promediar(results)
+    #print("\n", promedio)
+    return promedio
 
 # if __name__ == "__main__":
 
-#     ruta = 'C:\\Users\\bryam\\Pictures\\Camera Roll\\pruebas\\g1.jpg'
+#     ruta = 'C:\\Users\\bryam\\Pictures\\Camera Roll\\pruebas\\g4.jpg'
 #     img = cv2.imread(ruta)
 #     predic_many(img, 1)
 

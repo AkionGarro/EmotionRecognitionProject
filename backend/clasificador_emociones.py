@@ -1,6 +1,5 @@
 import pandas as pd
 import numpy as np
-import cv2
 import os
 import tensorflow as tf
 from tensorflow.keras import backend as K
@@ -154,12 +153,6 @@ class Emociones:
             padding='same'
         ))
         cnn.add(MaxPooling2D(pool_size=self.tamano_pool1))
-        # cnn.add(Convolution2D(
-        #     filters=self.filtros_conv3, 
-        #     kernel_size=self.tamano_filtro3,
-        #     padding='same'
-        # ))
-        # cnn.add(MaxPooling2D(pool_size=self.tamano_pool1))
         cnn.add(tf.keras.layers.Flatten())
         cnn.add(tf.keras.layers.Dense(256, activation='relu'))
         cnn.add(tf.keras.layers.Dropout(0.5))
