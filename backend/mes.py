@@ -11,7 +11,7 @@ clasificador_haar = clasificador_haar.ClasificadorHaar()
 def predic_one(img, id_user):
     detected_probability = clasificador_haar.detectar_atencion(img)
     pre_proccessed_img = algoritmos.calibrar_imagen(img)
-    emotion = predecir_emocion.predict(pre_proccessed_img)
+    emotion = algoritmos.predict_emotions(pre_proccessed_img)
     
     engaged = algoritmos.engaged(detected_probability, emotion)
     data = {
@@ -80,18 +80,18 @@ def predic_many(img, ids_user):
         results.append(result)
     
     #imprimir jsons de results
-    # cont = 1
-    # for result in results:
-    #     print("\n----------------------------", cont, "----------------------------------\n")
-    #     print(result)
-    #     cont += 1
+    cont = 1
+    for result in results:
+        print("\n----------------------------", cont, "----------------------------------\n")
+        print(result)
+        cont += 1
     return results
 
-if __name__ == "__main__":
+# if __name__ == "__main__":
 
-    ruta = 'C:\\Users\\bryam\\Pictures\\Camera Roll\\pruebas\\g1.jpg'
-    img = cv2.imread(ruta)
-    predic_many(img, 1)
+#     ruta = 'C:\\Users\\bryam\\Pictures\\Camera Roll\\pruebas\\g1.jpg'
+#     img = cv2.imread(ruta)
+#     predic_many(img, 1)
 
 
 
