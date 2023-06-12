@@ -24,8 +24,6 @@ def sortImage():
 
 
 
-
-
 #---------------------------Ejemplo de flask---------------------------
 @app.route('/login', methods=['POST', 'GET'])
 @cross_origin()
