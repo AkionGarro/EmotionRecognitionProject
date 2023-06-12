@@ -1,0 +1,68 @@
+{
+  "Reuniones": [
+    {
+      "Engaged": 0.65949,
+      "Emotion": {
+        "Angry": 0.522,
+        "Disgust": 1.555,
+        "Fear": 0.666,
+        "Happy": 0.1,
+        "Sad": 0.0005,
+        "Surprise": 0.009,
+        "Neutral": 1.1
+      },
+      "id": 1
+    },
+    {
+      "Engaged": 0.5551,
+      "Emotion": {
+        "Angry": 0.58642,
+        "Disgust": 0.589,
+        "Fear": 0.8,
+        "Happy": 1.1,
+        "Sad": 0.00578,
+        "Surprise": 0.0004,
+        "Neutral": 0.7
+      },
+      "id": 2
+    },
+    {
+      "Engaged": 0.0666,
+      "Emotion": {
+        "Angry": 1.22,
+        "Disgust": 1.358,
+        "Fear": 0.33,
+        "Happy": 0.0001,
+        "Sad": 0.99,
+        "Surprise": 0.00356,
+        "Neutral": 0.007
+      },
+      "id": 3
+    },{
+      "Engaged": 0.999,
+      "Emotion": {
+        "Angry": 0.000642,
+        "Disgust": 0.985,
+        "Fear": 0.6454,
+        "Happy": 0.995,
+        "Sad": 0.656,
+        "Surprise": 0.777,
+        "Neutral": 0.137
+      },
+      "id": 4
+    },
+    {
+      "Engaged": 0.6465,
+      "Emotion": {
+        "Angry": 0.78895,
+        "Disgust": 0.5651,
+        "Fear": 1.115,
+        "Happy": 1.584,
+        "Sad": 0.0009874,
+        "Surprise": 0.0051847,
+        "Neutral": 1.4763
+      },
+      "id": 5
+    }
+  ]
+}

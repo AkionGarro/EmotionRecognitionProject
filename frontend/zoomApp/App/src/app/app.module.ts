@@ -11,6 +11,8 @@ import { AboutComponent } from './about/about.component';
 import { NgxCaptureModule } from 'ngx-capture';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { PruebaComponent } from './prueba/prueba.component';
+import { GraficosComponent } from './graficos/graficos.component';
+import { NgChartsModule } from 'ng2-charts';
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,6 +21,7 @@ import { PruebaComponent } from './prueba/prueba.component';
     HomeComponent,
     AboutComponent,
     PruebaComponent,
+    GraficosComponent,
   ],
   imports: [
     BrowserModule,
@@ -31,7 +34,8 @@ import { PruebaComponent } from './prueba/prueba.component';
     AppRoutingModule,
     FormsModule,
     NgxCaptureModule,
-    HttpClientModule
+    HttpClientModule,NgChartsModule
+    
   ],
   providers: [],
   bootstrap: [AppComponent],

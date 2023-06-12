@@ -26,4 +26,7 @@ export class NavigationComponent implements OnInit {
   goToPrueba(){
     this.router.navigate(['prueba']);
   }
+  goToCharts(){
+    this.router.navigate(['charts']);
+  }
 }
