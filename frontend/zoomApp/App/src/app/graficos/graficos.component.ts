@@ -2,13 +2,15 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
 import { ApiService } from '../services/api.service';
+import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-graficos',
   templateUrl: './graficos.component.html',
   styleUrls: ['./graficos.component.css'],
 })
 export class GraficosComponent implements OnInit {
-  constructor(private api: ApiService) {}
+  constructor(private api: ApiService, private router: Router) {}
 
   chartData: any;
   engaged1: any[] = [];
@@ -24,21 +26,38 @@ export class GraficosComponent implements OnInit {
     }
     const formData = new FormData();
     formData.append('meetingID', meetID);
-    this.api.getChartsInfo(formData).subscribe((result: any) => {
-      console.log(result);
-      this.chartData = result;
-      if (this.chartData != null) {
-        this.engaged1.push(
-          Object(this.chartData['EngagedInfo']['probability'])
-        );
-        this.emotions.push(Object.values(this.chartData['EmotionsInfo']));
-        this.id1.push(Object(this.chartData['ID']));
+    this.api.getChartsInfo(formData).subscribe(
+      (result: any) => {
+        console.log(result);
+        this.chartData = result;
+        if (this.chartData != null) {
+          this.engaged1.push(
+            Object(this.chartData['EngagedInfo']['probability'])
+          );
+          this.emotions.push(Object.values(this.chartData['EmotionsInfo']));
+          this.id1.push(Object(this.chartData['ID']));
 
-        console.log(this.emotions);
-        console.log(this.engaged1);
-        this.RenderChart();
+          console.log(this.emotions);
+          console.log(this.engaged1);
+          this.RenderChart();
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'No hay datos para mostrar!',
+          });
+          this.router.navigate(['home']);
+        }
+      },
+      (erorr: any) => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: erorr.message,
+        });
+        this.router.navigate(['/']);
       }
-    });
+    );
   }
 
   RenderChart() {
