@@ -11,10 +11,6 @@ export class ApiService {
   private BASE_URL = 'http://localhost:5000/';
   constructor(private client: HttpClient) {}
 
-  getHelloFromBackend(): Observable<any> {
-    return this.client.get(this.BASE_URL + 'hello');
-  }
-
   sortImageAttention(image: any): Observable<any> {
     return this.client.post(this.BASE_URL + 'sortImage', image);
   }

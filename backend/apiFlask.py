@@ -1,6 +1,6 @@
 import cv2
 from flask import Flask, redirect, url_for, request, jsonify
-from firestore import firestoreService, userLogin, userRegister, serviceAdd, adminRegister, phaseProcedure, procedure
+from firestore import firestoreService
 from flask_cors import CORS, cross_origin
 import mes as me
 
@@ -31,19 +31,6 @@ def getChartsInfo():
     promedio = me.promediar(samples)
     print(promedio)
     return jsonify(promedio)
-
-
-#---------------------------Ejemplo de flask---------------------------
-@app.route('/login', methods=['POST', 'GET'])
-@cross_origin()
-def login():
-    fire = firestoreService()
-    name = request.form.get('name')
-    password = request.form.get('password')
-    userLog = userLogin(name, password)
-    res = fire.getUser(userLog)
-    return jsonify(res)
-
 
 
 

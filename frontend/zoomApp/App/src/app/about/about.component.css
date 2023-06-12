@@ -1,0 +1,43 @@
+.circle {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background-color: #f2f2f2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 20px;
+  overflow: hidden;
+}
+
+.circle img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+
+  transform: translateY(-10px);
+}
+.name {
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+.linkedin {
+  display: inline-block;
+  padding: 8px 16px;
+  background-color: rgb(39, 101, 167);
+  color: #fff;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.linkedin:hover {
+  background-color: #0056b3;
+}
+.aboutContainer {
+  height: 100vh;
+  background-image: url(../../assets/images/about.png);
+}

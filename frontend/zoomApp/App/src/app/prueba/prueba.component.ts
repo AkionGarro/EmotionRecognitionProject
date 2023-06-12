@@ -45,15 +45,6 @@ export class PruebaComponent implements OnInit {
       });
   }
 
-  getInfo() {
-    const formData2 = new FormData();
-    formData2.append('meetingID', '12345678');
-    this.api.getChartsInfo(formData2).subscribe((res: any) => {
-      
-      console.log(res);
-    });
-  }
-
   captureEnabled = true; // Variable para habilitar o deshabilitar la captura
 
   stopCapture(): void {

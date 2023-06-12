@@ -143,10 +143,4 @@ export class ZoomComponent implements OnInit {
         });
     });
   }
-
-  sayHelloBackend() {
-    this.api.getHelloFromBackend().subscribe((res) => {
-      console.log(res);
-    });
-  }
 }
