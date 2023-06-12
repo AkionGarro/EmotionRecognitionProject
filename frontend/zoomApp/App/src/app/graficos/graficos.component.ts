@@ -8,33 +8,31 @@ import { ApiService } from '../services/api.service';
   styleUrls: ['./graficos.component.css'],
 })
 export class GraficosComponent implements OnInit {
-  constructor(private http: HttpClient, private api :ApiService) {}
+  constructor(private api: ApiService) {}
 
   chartData: any;
   engaged1: any[] = [];
   emotions: any[] = [];
   id1: any[] = [];
 
-  ngOnInit(): void {
-    this.getChartInfo().subscribe((result) => {
+  async ngOnInit(): Promise<void> {
+    let meetID: any;
+    if (localStorage.getItem('meetingId') != null) {
+      meetID = localStorage.getItem('meetingId');
+    } else {
+      meetID = '12345678';
+    }
+    const formData = new FormData();
+    formData.append('meetingID', meetID);
+    this.api.getChartsInfo(formData).subscribe((result: any) => {
+      console.log(result);
       this.chartData = result;
-
       if (this.chartData != null) {
-        /* for(let i=0; i<this.chartData.length; i++){
-          //console.log(this.chartData[i]);
-          //this.engaged1.push(this.chartData[i].engaged)
-          this.engaged1.push(Object.values(this.chartData[i].Emotion))
-          
-        } */
         this.engaged1.push(
-          Object(this.chartData[this.chartData.length - 1].Engaged)
+          Object(this.chartData['EngagedInfo']['probability'])
         );
-        this.emotions.push(
-          Object.values(this.chartData[this.chartData.length - 1].Emotion)
-        );
-        this.id1.push(
-          Object.values(this.chartData[this.chartData.length - 1].id)
-        );
+        this.emotions.push(Object.values(this.chartData['EmotionsInfo']));
+        this.id1.push(Object(this.chartData['ID']));
 
         console.log(this.emotions);
         console.log(this.engaged1);
@@ -42,21 +40,19 @@ export class GraficosComponent implements OnInit {
       }
     });
   }
-  getChartInfo() {
-    return this.http.get('http://localhost:3000/charts');
-  }
+
   RenderChart() {
     const chart = new Chart('chartemotion', {
       type: 'bar',
       data: {
         labels: [
-          'Angry',
-          ' Disgust',
-          'Fear',
-          'Happy',
-          'Sad',
-          'Surprise',
-          'Neutral',
+          'angry',
+          'disgust',
+          'fear',
+          'happy',
+          'neutral',
+          'sad',
+          'surprise',
         ],
         datasets: [
           {

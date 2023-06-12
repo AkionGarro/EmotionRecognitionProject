@@ -95,7 +95,7 @@ class firestoreService():
         docs = self.db.collection('Meetings').where("MeetingID", "==", meetingId).get()
         samples = []
         for doc in docs:
-            print(f'{doc.id} => {doc.to_dict()}')
+            #print(f'{doc.id} => {doc.to_dict()}')
             samples.append(doc.to_dict())
         return samples
 

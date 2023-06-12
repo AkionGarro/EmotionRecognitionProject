@@ -19,7 +19,7 @@ export class ApiService {
     return this.client.post(this.BASE_URL + 'sortImage', image);
   }
 
-  getChartsInfo(meetingId: any): Observable<any> {
-    return this.client.get(this.BASE_URL + 'prueba', meetingId);
+  getChartsInfo(value: any): Observable<any> {
+    return this.client.post(this.BASE_URL + 'getInfoCharts', value);
   }
 }

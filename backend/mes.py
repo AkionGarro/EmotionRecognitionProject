@@ -78,12 +78,12 @@ def promediar(json_list):
     for json_data in json_list:
         total_probability += json_data['EngagedInfo']['probability']
         total_focused += json_data['Focused']
-        print(json_data['Focused'])
+        #print(json_data['Focused'])
         emotions = json_data['EmotionsInfo']
         for key in emotions_total:
             emotions_total[key] += emotions[key]
 
-    id = json_list[0]['Id']
+    id = json_list[0]['MeetingID']
 
     average_probability = total_probability / num_items
     average_focused = total_focused / num_items

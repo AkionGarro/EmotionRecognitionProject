@@ -22,13 +22,15 @@ def sortImage():
     return jsonify(stats)
 
 
-@app.route('/prueba', methods=['POST', 'GET'])
+@app.route('/getInfoCharts', methods=['POST', 'GET'])
 @cross_origin()
 def getChartsInfo():
     fire = firestoreService()
-    meetingId = "12345678"
+    meetingId = request.form.get('meetingID')
     samples = fire.getSamplesByMeetingId(meetingId)
-    return jsonify(samples)
+    promedio = me.promediar(samples)
+    print(promedio)
+    return jsonify(promedio)
 
 
 #---------------------------Ejemplo de flask---------------------------

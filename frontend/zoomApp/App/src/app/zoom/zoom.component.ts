@@ -81,11 +81,12 @@ export class ZoomComponent implements OnInit {
         console.log('Error --->', error);
       },
     });
+    localStorage.setItem('meetingId', meeting);
     this.startCapture();
   }
 
   startCapture(): void {
-    interval(20000) // Ejecuta la función cada 30 segundos (30000 milisegundos)
+    interval(60000) // Ejecuta la función cada 60 segundos (30000 milisegundos)
       .pipe(takeWhile(() => this.captureEnabled)) // Continúa ejecutando mientras captureEnabled sea verdadero
       .subscribe(() => {
         this.captureScreen();
