@@ -12,16 +12,23 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 @cross_origin()
 def sortImage():
     fire = firestoreService()
-
     imageBase64 = request.form.get('imageBase64')
     meetingId = request.form.get('meetingId')
     imagePng = me.base64_to_png(imageBase64)
     img = cv2.imread(imagePng)
     stats = me.predic_one(img,meetingId)
-    fire.addMeeting(stats)
+    fire.addSampleByMeetingId(stats)
     print(stats)
     return jsonify(stats)
 
+
+@app.route('/prueba', methods=['POST', 'GET'])
+@cross_origin()
+def getChartsInfo():
+    fire = firestoreService()
+    meetingId = "12345678"
+    samples = fire.getSamplesByMeetingId(meetingId)
+    return jsonify(samples)
 
 
 #---------------------------Ejemplo de flask---------------------------

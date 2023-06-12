@@ -64,7 +64,7 @@ class firestoreService():
             self.app = firebase_admin.initialize_app(self.cred)
         self.db = firestore.client()
 
-    # Add document using know id, change document to document(user['name'])
+
     def addMeeting(self, data):
         checkMeeting = self.db.collection('Meetings').where("Id", "==", data["Id"]).get()
         if checkMeeting == []:
@@ -79,6 +79,53 @@ class firestoreService():
         else:
             res = {'result': 'Change Username'}
             return res
+
+    def addSampleByMeetingId(self, data):
+        doc_ref = self.db.collection('Meetings').document()
+        doc_ref.set({
+            'MeetingID': data["Id"],
+            'EmotionsInfo': data["EmotionsInfo"],
+            'EngagedInfo': data["EngagedInfo"],
+            'Focused': data["Focused"],
+        })
+        res = {'result': 'Sucess'}
+        return res
+
+    def getSamplesByMeetingId(self, meetingId):
+        docs = self.db.collection('Meetings').where("MeetingID", "==", meetingId).get()
+        samples = []
+        for doc in docs:
+            print(f'{doc.id} => {doc.to_dict()}')
+            samples.append(doc.to_dict())
+        return samples
+
+
+
+
+
+
+
+    def addService(self, service):
+        doc_ref = self.db.collection('services').document()
+        doc_ref.set({
+            'serviceDescription': service.serviceDescription,
+            'companyDescription': service.companyDescription,
+            'serviceType': service.serviceType,
+            'username': service.username,
+            'id': doc_ref.id,
+            'created': firestore.SERVER_TIMESTAMP
+        })
+        res = {'result': 'Success',
+               'Id': doc_ref.id}
+        return res
+
+
+
+
+
+
+
+
 
 
 

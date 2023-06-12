@@ -21,7 +21,7 @@ export class PruebaComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  capture() {
+  async capture() {
     this.captureService
       .getImage(this.screen.nativeElement, true)
       .subscribe((img) => {
@@ -37,18 +37,21 @@ export class PruebaComponent implements OnInit {
       });
   }
 
-  startCapture(): void {
-    if (this.recording == false) {
-      this.recording = true;
-      console.log('Inciando captura');
-      interval(10000) // Ejecuta la función cada 30 segundos (30000 milisegundos)
-        .pipe(takeWhile(() => this.captureEnabled)) // Continúa ejecutando mientras captureEnabled sea verdadero
-        .subscribe(() => {
-          this.capture();
-        });
-    } else {
-      this.stopCapture();
-    }
+  async startCapture(): Promise<void> {
+    interval(5000) // Ejecuta la función cada 30 segundos (30000 milisegundos)
+      .pipe(takeWhile(() => this.captureEnabled)) // Continúa ejecutando mientras captureEnabled sea verdadero
+      .subscribe(() => {
+        this.capture();
+      });
+  }
+
+  getInfo() {
+    const formData2 = new FormData();
+    formData2.append('meetingID', '12345678');
+    this.api.getChartsInfo(formData2).subscribe((res: any) => {
+      
+      console.log(res);
+    });
   }
 
   captureEnabled = true; // Variable para habilitar o deshabilitar la captura

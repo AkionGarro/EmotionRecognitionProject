@@ -20,6 +20,6 @@ export class ApiService {
   }
 
   getChartsInfo(meetingId: any): Observable<any> {
-    return this.client.get(this.BASE_URL + 'charts', meetingId);
+    return this.client.get(this.BASE_URL + 'prueba', meetingId);
   }
 }
